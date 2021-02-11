@@ -1,0 +1,4 @@
+db/test/carts/*
+db/development/carts/*
+db/production/carts/*
+node_modules
