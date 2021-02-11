@@ -9,9 +9,7 @@
 
 {{#each products}}
   <article>
-    <h2>
-      <a href="/products/{{id}}">{{item}}</a>
-    </h2>
+    <button class="button button-p" onclick="window.location.href=`/products/{{id}}`">{{item}}</button>
     {{!-- <p>
       {{id}}, {{price}}
     </p> --}}
