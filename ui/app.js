@@ -20,9 +20,6 @@ app.set('view engine', 'hbs');
 
 app.use(cookieParser());
 app.use(session({
-  // genid: function(req) {
-  //   return genuuid() // use UUIDs for session IDs
-  // },
   secret: 'mysecret',
   resave: false,
   saveUninitialized: false,
@@ -52,19 +49,32 @@ app.get('/products', async function (req, res) {
       })
       .then(res => res.text())
       .then(body => req.session.cartId = JSON.parse(body).id);
-    // console.log(req.session.cartId);
-    console.log(req.session.id);
-    res.send("Welcome! You created a cart!");
+    console.log(req.session.cartId, 'CART ID');
+    res.send("Welcome! You created a cart! Go buy something!");
   } else {
     const productsList = await fetch('http://localhost:3001/api/products')
       .then(res => res.text())
       .then(body => JSON.parse(body))
-    // console.log(req.session.id);
-    // console.log(productsList[0]);
-    // res.send(productsList);
+    console.log(req.session.id, 'SESSION ID');
+    // console.log(productsList)
     res.render('products', {
       products: productsList,
     });
+  }
+});
+
+app.get(`/products/:id`, async function (req, res) {
+  if (req.session.cartId) {
+    let id = req.params.id;
+    const productInfo = await fetch(`http://localhost:3001/api/products/${id}`)
+      .then(res => res.text())
+      .then(body => JSON.parse(body))
+      // console.log(productInfo);
+    res.render('product', {
+      product: productInfo,
+    });
+  } else {
+    res.send('Something happened. Try again!')
   }
 });
 

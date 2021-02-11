@@ -1,18 +1,19 @@
-<nav>
+<div class="topnav">
   <a href="/">Home</a>
-  <a href="/products">Products</a>
+  <a class="active" href="/products">Products</a>
   <a href="/cart">Cart</a>
   <a href="/about">About</a>
-</nav>
-<h1>This is the Product page</h1>
+</div>
+
+<h1>This is the PRODUCTS page</h1>
 
 {{#each products}}
   <article>
-    {{!-- <h2>
+    <h2>
       <a href="/products/{{id}}">{{item}}</a>
-    </h2> --}}
-    <p>
+    </h2>
+    {{!-- <p>
       {{id}}, {{price}}
-    </p>
+    </p> --}}
   </article>
 {{/each}}
