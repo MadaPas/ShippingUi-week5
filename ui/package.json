@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/MadaPas/ShippingUi-week5/issues"
   },
-  "homepage": "https://github.com/MadaPas/ShippingUi-week5#readme"
+  "homepage": "https://github.com/MadaPas/ShippingUi-week5#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0"
+  }
 }
