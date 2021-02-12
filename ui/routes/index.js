@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-    console.log(req.session.id);
+    console.log(req.session.id, 'SESSION ID');
     if (!req.session.cartId) {
       res.render('home', {
         nav: [
@@ -25,6 +25,7 @@ router.get('/', function (req, res) {
   });
   
 router.get('/about', function (req, res) {
+  console.log(req.session.id, 'SESSION ID');
   res.render('about', {
     nav: [
       { url: "/", title: "Home" },
@@ -46,8 +47,8 @@ router.get('/products', async function (req, res) {
   const productsList = await fetch('http://localhost:3001/api/products')
     .then(res => res.text())
     .then(body => JSON.parse(body))
-  console.log(req.session.id);
-  res.render('products', {
+    console.log(req.session.id, 'SESSION ID');
+    res.render('products', {
     products: productsList,
     product: {},
     nav: [
@@ -60,12 +61,12 @@ router.get('/products', async function (req, res) {
 });
 
 router.get(`/products/:id`, async function (req, res) {
+  console.log(req.session.id, 'SESSION ID');
   if (req.session.cartId) {
     let id = req.params.id;
     const productInfo = await fetch(`http://localhost:3001/api/products/${id}`)
       .then(res => res.text())
       .then(body => JSON.parse(body))
-      // console.log(productInfo);
     res.render('product', {
       product: productInfo,
       nav: [
@@ -82,6 +83,7 @@ router.get(`/products/:id`, async function (req, res) {
 
 router.post(`/products/:id`, async function (req, res) {
   try {
+    console.log(req.session.id, 'SESSION ID');
     const productInfo = await fetch(`http://localhost:3001/api/products/${req.params.id}`)
       .then(res => res.text())
       .then(body => JSON.parse(body))
@@ -91,7 +93,7 @@ router.post(`/products/:id`, async function (req, res) {
       quantity: req.body.qty,
       price: productInfo.price,
     };
-    console.log(product);
+    // console.log(product);
     await fetch(`http://localhost:3001/api/carts/${req.session.cartId}`, {
           method: 'POST',
           body:    JSON.stringify(product),
@@ -107,6 +109,7 @@ router.post(`/products/:id`, async function (req, res) {
   
 router.get('/carts/:id', async function (req, res) {
   try {
+    console.log(req.session.id, 'SESSION ID');
     const cart = await fetch(`http://localhost:3001/api/carts/${req.session.cartId}`)
       .then(res => res.text())
       .then(body => JSON.parse(body));
@@ -119,6 +122,20 @@ router.get('/carts/:id', async function (req, res) {
         { url: "/about", title: "About" }
       ]
     });
+  } catch (err) {
+    res.status(500);
+    res.end();
+  }
+});
+
+router.post(`/`, async function (req, res) {
+  try {
+    await fetch(`http://localhost:3001/api/carts/${req.session.cartId}`, {
+          method: 'DELETE',
+      })
+    req.session.destroy();
+    res.status(204);
+    res.redirect('/');
   } catch (err) {
     res.status(500);
     res.end();
