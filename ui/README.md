@@ -68,10 +68,3 @@ When the cart has been checked out, it should no longer be reachable from the UI
 
 The about page is a static page with some information about the shop. You are free to add whatever info you want to this page. But the top menu links must follow the session. That means that the products and carts links hould only be present if the user has started a new session and the session is active.
 ![about-page](wireframes/Salt-shopping-about-page.png)
-
-
-
-- Present at least 2 different ways of handling personal shopping carts, between multiple different users.
-
-
-sticky sessions - NO GO 

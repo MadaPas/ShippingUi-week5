@@ -1,8 +1,7 @@
 <div class="topnav">
-  <a href="/">Home</a>
-  <a href="/products">Products</a>
-  <a href="/cart">Cart</a>
-  <a href="/about">About</a>
+  {{#each nav}}
+    <a href="{{url}}">{{title}}</a>
+  {{/each}}
 </div>
 
 <h1>This is the PRODUCT page</h1>
@@ -15,3 +14,13 @@
     <li>{{product.description}}</li>
   </ul>
 </article>
+
+<form action="/products/{{product.id}}" method="post">
+  <div>
+    <label for="qty"></label>
+    <input name="qty" id="qty" value="1">
+  </div>
+  <div>
+    <button>Add</button>
+  </div>
+</form>

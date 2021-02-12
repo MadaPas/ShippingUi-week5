@@ -1,7 +1,26 @@
 <div class="topnav">
-  <a href="/">Home</a>
-  <a href="/products">Products</a>
-  <a class="active" href="/cart">Cart</a>
-  <a href="/about">About</a>
+  {{#each nav}}
+    <a href="{{url}}">{{title}}</a>
+  {{/each}}
 </div>
-<h1>This is the CART page</h1>
+
+<h1>Cart</h1>
+
+<table style="font-size: 20px;">
+<thead>
+  <tr>
+    <th style="width:200px;">Item</th>
+    <th>Quantity</th>
+    <th>Price</th>
+  </tr>
+</thead>
+<tbody>
+  {{#each products}}
+    <tr>
+      <td>{{item}}</td>
+      <td>{{quantity}}</td>
+      <td>{{price}}</td>
+    </tr>
+  {{/each}}
+</tbody>
+</table>

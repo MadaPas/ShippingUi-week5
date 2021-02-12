@@ -1,7 +1,7 @@
 <div class="topnav">
-  <a href="/">Home</a>
-  <a href="/products">Products</a>
-  <a href="/cart">Cart</a>
-  <a class="active" href="/about">About</a>
+  {{#each nav}}
+    <a href="{{url}}">{{title}}</a>
+  {{/each}}
 </div>
+
 <h1>This is the ABOUT page</h1>
